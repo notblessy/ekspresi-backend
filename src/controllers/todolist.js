@@ -1,9 +1,17 @@
 import TodoList from "../models/todolists";
 
-export const all = async (req, res) => {
+export const getTodo = async (req, res) => {
   try {
-    const list = await TodoList.query();
-
+    const list = await TodoList.query()
+      .where((builder) => {
+        if (req.query.completion == "no") {
+          builder.where("is_completed", false);
+        }
+        if (req.query.completion == "yes") {
+          builder.where("is_completed", true);
+        }
+      })
+      .orderBy("id", "desc");
     return res.json({
       success: true,
       data: list,

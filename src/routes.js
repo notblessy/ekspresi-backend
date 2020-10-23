@@ -8,9 +8,7 @@ routes.get("/", (_, res) => {
   return res.json({ ping: "pong!" });
 });
 
-routes.get("/todolist", todolist.all);
-routes.get("/todolist/active", todolist.isActive);
-routes.get("/todolist/completed", todolist.isCompleted);
+routes.get("/todolist", todolist.getTodo);
 routes.post("/todolist", todolist.create);
 routes.put("/todolist/:id", todolist.edit);
 routes.delete("/todolist", todolist.destroy);
